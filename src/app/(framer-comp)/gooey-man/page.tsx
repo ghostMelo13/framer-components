@@ -28,13 +28,14 @@ export default function GooeyMan() {
                     <filter id="goo">
                         <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
                         <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-                        <feBlend in="SourceGraphic" in2="goo" />
+                        {/* <feBlend in="SourceGraphic" in2="goo" /> */}
+                        <feComposite in="SourceGraphic" in2="goo" operator="atop" />
                     </filter>
                 </defs>
                 <foreignObject width="100%" height="100%" filter="url(#goo)">
-                    <div className="w-20 h-20 rounded-full bg-black text-white absolute top-[20%] left-[19%] flex justify-center items-center">1st</div>
-                    <div className={`w-20 h-20 rounded-full bg-black text-white absolute top-[20%] left-[19%] flex justify-center items-center
-                    ${animate? 'translate-x-[130%] duration-[2.6s]' : 'translate-x-0'}`}>2nd</div>
+                    <div className="w-20 h-20 bg-black text-white absolute top-[20%] left-[19%] flex justify-center items-center">1st</div>
+                    <div className={`w-20 h-20 bg-black text-white absolute top-[20%] left-[19%] flex justify-center items-center
+                    ${animate? 'translate-x-[130%] duration-[2.6s]' : 'translate-x-0 duration-1000'}`}>2nd</div>
                 </foreignObject>
             </svg>
 

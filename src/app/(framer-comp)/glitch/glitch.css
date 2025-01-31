@@ -1,0 +1,6 @@
+.glitch::before{
+    text-shadow: -1px 0 red;
+}
+.glitch::after{
+    text-shadow: -1px 0 blue;
+}
