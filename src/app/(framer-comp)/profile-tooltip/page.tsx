@@ -1,5 +1,6 @@
+"use client"
 import AnimatedTooltip from "@/components/ui/animated-tooltip"
-
+import { motion } from "framer-motion"
 
 
 const people = [
@@ -47,10 +48,53 @@ const people = [
     },
 ]
 
+const blogs = [
+  {
+    id: 1,
+    title: "This is blog title",
+    date: "2024-12-29",
+  },
+  {
+    id: 2,
+    title: "This is second blog title",
+    date: "2024-11-02",
+  },
+  {
+    id: 3,
+    title: "Third blog title",
+    date: "2024-10-23"
+  }
+]
+
 export default function AnimatedTooltipPreview(){
     return (
         <div className="flex flex-col gap-10 bg-slate-600">
-            <div className="w-full min-h-screen flex items-center justify-center bg-gray-900 py-9">
+            <div className="w-full min-h-screen flex flex-col gap-4 items-center justify-center bg-gray-900 py-9">
+                <div className="w-[60%] h-[15rem] text-white flex flex-col gap-6 justify-center items-center border border-zinc-700 rounded-xl">
+                    {blogs.map((blog, idx) => (
+                      <motion.div key={idx} className="flex flex-col gap-2"
+                        initial={{
+                          opacity: 0,
+                          filter: "blur(4px)",
+                          y: 10
+                        }}
+                        animate={{
+                          opacity: 1,
+                          filter: "blur(0px)",
+                          y: 0
+                        }}
+                        transition={{
+                          duration: 0.3,
+                          delay: idx * 0.09,
+                          ease: 'easeInOut'
+                        }}
+                      >
+                        <div className="text-xl font-medium">This is blog title</div>
+                        <div className="text-sm text-zinc-400">2024-12-29</div>
+                      </motion.div>
+                    ))}
+                    
+                </div>
                 <div className="w-[60%] h-[15rem] text-white flex justify-center items-center border border-zinc-700 rounded-xl">
                     <AnimatedTooltip items={people} />
                 </div>

@@ -1,13 +1,15 @@
 "use client"
 
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 
 
 export default function GooeyMan() {
     const [animate, setAnimate] = useState(false);
+    const [hovered, setHovered] = useState(false);
   return (
-    <div className=" w-full min-h-screen flex justify-center items-center">
+    <div className=" w-full min-h-screen flex flex-col justify-center items-center">
         <div className="flex gap-2">
             {/* <div className="square w-20 h-20 bg-blue-600 animate-spin blur-lg contrast-200"></div> */}
             {/* <div className="square w-20 h-20 bg-blue-600" style={{filter: 'blur(#blur)'}}></div> */}
@@ -43,33 +45,67 @@ export default function GooeyMan() {
             <div onClick={() => setAnimate(false)} className="h-fit py-1 px-4 border border-slate-400 rounded-xl cursor-pointer">Click to reset</div>
 
 
-
-            {/* <div className="w-full min-h-screen flex justify-center items-center">
-                <div className="flex gap-2" style={{ filter: "contrast(20)" }}>
-                    <svg width="100" height="100">
-                        <defs>
-                            <filter id="gooey">
-                                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
-                                <feColorMatrix in="blur" mode="matrix" values="
-                                    1 0 0 0 0  
-                                    0 1 0 0 0  
-                                    0 0 1 0 0  
-                                    0 0 0 20 -10" result="gooey"
-                                />
-                                <feComposite in="SourceGraphic" in2="gooey" operator="atop"/>
-                            </filter>
-                        </defs>
-
-                        <g filter="url(#gooey)">
-                            <circle cx="30" cy="30" r="20" fill="blue" />
-                            <circle cx="60" cy="30" r="20" fill="blue" />
-                        </g>
-                    </svg>
-                </div>
-            </div> */}
-
             {/* <div className="square w-20 h-20 rounded-full bg-blue-600 "></div> */}
         </div>
+
+        <div className="w-full min-h-screen border border-rose-600 flex flex-col items-center">
+            <div>Second section</div>
+
+            <div className="mt-[10rem]">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" className="h-[20rem] w-[20rem] flex justify-center items-center border border-rose-600">
+                    <defs>
+                        <filter id="gooey-tooltip"  x="-50%" y="-50%" width="200%" height="200%" filterUnits="userSpaceOnUse">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+                            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="goo" />
+                            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                        </filter>
+                    </defs>
+                    <foreignObject width="100%" height="100%" filter="url(#gooey-tooltip)">
+                        <div className="w-full h-full flex justify-center items-center">
+                            <div 
+                                className="btn-container mt-24 w-16 h-16 relative bg-black rounded-2xl flex justify-center items-center text-white text-2xl font-bold"
+                                onMouseEnter={() => setHovered(true)}
+                                onMouseLeave={() => setHovered(false)}
+                            >
+                                <span className="text-white">M</span>
+                                <AnimatePresence>
+                                    {hovered && (
+                                        <motion.div 
+                                            initial={{
+                                                y: 0,
+                                                scale: 0.3,
+                                            }}
+                                            animate={{
+                                                y: -120,
+                                                scale: 1,
+                                            }}
+                                            exit={{
+                                                y: 0,
+                                                scale: 0.3,
+                                                opacity: 0,
+                                            }}
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 100,
+                                                damping: 25,
+                                                mass: 1.8,
+                                                duration: 3
+                                            }}
+                                            className="flex flex-col min-w-[10rem] gap-2 text-sm absolute px-2 py-2 rounded-lg bg-black"
+                                        >
+                                            <div className="hover:bg-slate-700 rounded-md px-2 py-1 cursor-pointer">Home</div>
+                                            <div className="hover:bg-slate-700 rounded-md px-2 py-1 cursor-pointer">Profile</div>
+                                            <div className="hover:bg-slate-700 rounded-md px-2 py-1 cursor-pointer">Contact</div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        </div>
+                    </foreignObject>
+                </svg>
+            </div>
+        </div>
+
     </div>
   )
 }
