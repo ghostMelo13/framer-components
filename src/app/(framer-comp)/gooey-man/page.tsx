@@ -63,7 +63,7 @@ export default function GooeyMan() {
                     <foreignObject width="100%" height="100%" filter="url(#gooey-tooltip)">
                         <div className="w-full h-full flex justify-center items-center">
                             <div 
-                                className="btn-container mt-24 w-16 h-16 relative bg-black rounded-2xl flex justify-center items-center text-white text-2xl font-bold"
+                                className="btn-container mt-24 w-16 h-16 relative z-20 bg-black rounded-2xl flex justify-center items-center text-white text-2xl font-bold"
                                 onMouseEnter={() => setHovered(true)}
                                 onMouseLeave={() => setHovered(false)}
                             >
@@ -74,22 +74,26 @@ export default function GooeyMan() {
                                             initial={{
                                                 y: 0,
                                                 scale: 0.3,
+                                                z: 3
                                             }}
                                             animate={{
                                                 y: -120,
                                                 scale: 1,
+                                                z: 3
                                             }}
                                             exit={{
                                                 y: 0,
                                                 scale: 0.3,
                                                 opacity: 0,
+                                                z: 3
                                             }}
                                             transition={{
                                                 type: "spring",
                                                 stiffness: 100,
                                                 damping: 25,
                                                 mass: 1.8,
-                                                duration: 3
+                                                duration: 3,
+                                                z: 3
                                             }}
                                             className="flex flex-col min-w-[10rem] gap-2 text-sm absolute px-2 py-2 rounded-lg bg-black"
                                         >
