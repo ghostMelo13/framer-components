@@ -144,7 +144,7 @@ function AnimatedCheckboxComponent({ displayText}: any) {
         }}
         initial={{x: 0}}
         animate={{
-          x: checked? [0, -2, 0] : [0, -4, 0]
+          x: checked? [0, 4, 0] : [0, -4, 0]
         }}
         transition={{
           duration: 0.4, ease: 'easeOut'
