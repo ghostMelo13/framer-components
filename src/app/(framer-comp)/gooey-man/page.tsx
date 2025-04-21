@@ -35,8 +35,8 @@ export default function GooeyMan() {
                     </filter>
                 </defs>
                 <foreignObject width="100%" height="100%" filter="url(#goo)">
-                    <div className="w-20 h-20 bg-black text-white absolute top-[20%] left-[19%] flex justify-center items-center">1st</div>
-                    <div className={`w-20 h-20 bg-black text-white absolute top-[20%] left-[19%] flex justify-center items-center
+                    <div className="w-20 h-20 rounded-full bg-black text-white absolute top-[20%] left-[19%] flex justify-center items-center">1st</div>
+                    <div className={`w-20 h-20 rounded-full bg-black text-white absolute top-[20%] left-[19%] flex justify-center items-center
                     ${animate? 'translate-x-[130%] duration-[2.6s]' : 'translate-x-0 duration-1000'}`}>2nd</div>
                 </foreignObject>
             </svg>
