@@ -23,10 +23,12 @@ export default function AnimatedCheckbox() {
 function AnimatedCheckboxComponent({ displayText}: any) {
 
   const [checked, setChecked] = useState(false);
+  const [initialChecked, setInitialChecked] = useState(false);
   const borderControls = useAnimation();
   const boxControls = useAnimation();
   const tickControls = useAnimation();
   const lineControls = useAnimation();
+  const textControls = useAnimation();
 
   useEffect(() => {
     // console.log('checked-->', checked)
@@ -36,47 +38,57 @@ function AnimatedCheckboxComponent({ displayText}: any) {
 
   const handleToggle = async () => {
     setChecked((prev) => !prev);
+    setInitialChecked(true);
   };
 
   async function ToggleCheck() {
-    if(checked){
-      // Start seq.
-      await borderControls.start({
-        pathLength: !checked ? 1 : 0,
-        transition: { duration: 0.2, ease: "easeInOut" },
-      });
-      await boxControls.start({
-        scale: !checked ? 0 : 1,
-        transition: { duration: 0.2, ease: "easeOut" },
-      });
-      tickControls.start({
-        pathLength: !checked ? 0 : 1,
-        opacity: 1,
-        transition: { duration: 0.2, ease: "easeInOut" },
-      });
-      lineControls.start({
-        width: '100%',
-        transition: { duration: 0.3, ease: "easeInOut" },
-      })
-    }else{
-      lineControls.start({
-        width: 0,
-        transition: { duration: 0.3, ease: "easeInOut" },
-      })
-      await tickControls.start({
-        pathLength: 0,
-        opacity: 0,
-        transition: { duration: 0.2, ease: "easeInOut" },
-      });
-      await boxControls.start({
-        scale: 0,
-        transition: { duration: 0.1, ease: "easeOut" },
-      });
-    
-      await borderControls.start({
-        pathLength: 1,
-        transition: { duration: 0.4, ease: "easeInOut" },
-      });
+    if(initialChecked){
+      if(checked){
+        // Start seq.
+        await borderControls.start({
+          pathLength: !checked ? 1 : 0,
+          transition: { duration: 0.2, ease: "easeInOut" },
+        });
+        await boxControls.start({
+          scale: !checked ? 0 : 1,
+          transition: { duration: 0.2, ease: "easeOut" },
+        });
+        tickControls.start({
+          pathLength: !checked ? 0 : 1,
+          opacity: 1,
+          transition: { duration: 0.2, ease: "easeInOut" },
+        });
+        lineControls.start({
+          width: '100%',
+          transition: { duration: 0.2, ease: "easeInOut" },
+        })
+        textControls.start({
+          x: checked? [0, -2, 0] : [0, -4, 0],
+          // transition: { delay: checked? 0.3 : 0 }
+        })
+      }else{
+        lineControls.start({
+          width: 0,
+          transition: { duration: 0.2, ease: "easeInOut" },
+        })
+        textControls.start({
+          x: checked? [0, 4, 0] : [0, -4, 0]
+        })
+        await tickControls.start({
+          pathLength: 0,
+          opacity: 0,
+          transition: { duration: 0.2, ease: "easeInOut" },
+        });
+        await boxControls.start({
+          scale: 0,
+          transition: { duration: 0.1, ease: "easeOut" },
+        });
+      
+        await borderControls.start({
+          pathLength: 1,
+          transition: { duration: 0.4, ease: "easeInOut" },
+        });
+      }
     }
   }
 
@@ -143,9 +155,7 @@ function AnimatedCheckboxComponent({ displayText}: any) {
           // transition: "all 0.3s ease",
         }}
         initial={{x: 0}}
-        animate={{
-          x: checked? [0, 4, 0] : [0, -4, 0]
-        }}
+        animate={textControls}
         transition={{
           duration: 0.4, ease: 'easeOut'
         }}
